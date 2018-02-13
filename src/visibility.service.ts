@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { Subject } from 'rxjs/Subject';
+import { Observable } from 'rxjs/Observable';
 
 /**
  * VisibilityService
@@ -19,7 +20,7 @@ export class VisibilityService {
   private visibilityChangeEvent: string;
   private visibility$: Subject<Boolean>;
 
-  private legacyVisibilityHandleFn: Function;
+  private legacyVisibilityHandleFn: (this: Document | Window, ev: FocusEvent) => any;
 
   constructor() {
     this.document = <any> document;
@@ -34,7 +35,7 @@ export class VisibilityService {
    *
    * @return {Observable<Boolean>}
    */
-  onVisibilityChange() {
+  onVisibilityChange(): Observable<Boolean> {
     if (!this.visibility$) {
       this.setupVisibilityHandler();
     }
@@ -68,8 +69,6 @@ export class VisibilityService {
       this.visibility$ = new BehaviorSubject<Boolean>(this.document.hasFocus());
 
       //Setup blur and focus event handlers for updating browser visibility.
-      document.onblur = this.legacyVisibilityHandleFn;
-      document.onfocus = this.legacyVisibilityHandleFn;
       window.onblur = this.legacyVisibilityHandleFn;
       window.onfocus = this.legacyVisibilityHandleFn;
     } else {
