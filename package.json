@@ -1,6 +1,6 @@
 {
   "name": "@frshaw1/angular-visibility-api",
-  "version": "1.0.5",
+  "version": "1.0.0",
   "description": "A Angular and RxJS enabled tie in to the browsers native visibility API",
   "main": "dist/index.js",
   "scripts": {
