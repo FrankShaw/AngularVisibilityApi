@@ -1,0 +1,40 @@
+{
+  "name": "@frshaw1/angular-visibility-api",
+  "version": "1.0.5",
+  "description": "A Angular and RxJS enabled tie in to the browsers native visibility API",
+  "main": "dist/index.js",
+  "scripts": {
+    "build": "tsc",
+    "prepare": "npm run build",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@github.com/FrankShaw/AngularVisibilityApi.git"
+  },
+  "keywords": [
+    "angular",
+    "visibility-api"
+  ],
+  "author": "Frank Shaw",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/FrankShaw/AngularVisibilityApi/issues"
+  },
+  "homepage": "https://github.com/FrankShaw/AngularVisibilityApi#readme",
+  "typings": "dist/index.d.ts",
+  "devDependencies": {
+    "@angular/core": "^5.0.0",
+    "@types/node": "^9.4.5",
+    "core-js": "^2.4.1",
+    "rxjs": "^5.5.2",
+    "tslint": "^5.9.1",
+    "typescript": "^2.7.1",
+    "zone.js": "^0.8.14"
+  },
+  "peerDependencies": {
+    "@angular/core": "^5.0.0",
+    "core-js": "^2.4.1",
+    "rxjs": "^5.5.2"
+  }
+}
