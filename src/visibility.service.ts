@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
-import { Subject } from 'rxjs/Subject';
 import { Observable } from 'rxjs/Observable';
 
 /**
@@ -10,17 +9,17 @@ import { Observable } from 'rxjs/Observable';
  * This service abstracts the differences between browsers and makes using the visibility API seamless.
  *
  * The service exposes a single method `onVisibilityChange()` that will return an `Observable<Boolean>` that the
- * caller can subscribe to. Upon initial subscription the subscribe handler will be called immediately with the
- * current value of the browser visibility.
+ * caller can subscribe to. Since the internal representation of the `Observable` is a `BehaviorSubject`, upon each
+ * subscription the subscribe handler will be called immediately with the current value of the visibility observable.
  */
 @Injectable()
 export class VisibilityService {
   private document: any;
   private hiddenProperty: string;
   private visibilityChangeEvent: string;
-  private visibility$: Subject<Boolean>;
+  private visibility$: BehaviorSubject<Boolean>;
 
-  private legacyVisibilityHandleFn: (this: Document | Window, ev: FocusEvent) => any;
+  private legacyVisibilityHandleFn: (this: Window, ev: FocusEvent) => any;
 
   constructor() {
     this.document = <any> document;
@@ -30,7 +29,7 @@ export class VisibilityService {
   }
 
   /**
-   * Generates and the Observable<Boolean> that callers can subscribe to for visibility events. The subscription value
+   * Generates the Observable<Boolean> that callers can subscribe to for visibility events. The subscription value
    * is a {Boolean} value that indicates whether the current window IS VISIBLE.
    *
    * @return {Observable<Boolean>}
@@ -39,6 +38,7 @@ export class VisibilityService {
     if (!this.visibility$) {
       this.setupVisibilityHandler();
     }
+
     return this.visibility$.asObservable();
   }
 
@@ -58,10 +58,6 @@ export class VisibilityService {
     }
   }
 
-  private legacyVisibilityHandler(event: FocusEvent) {
-    this.visibility$.next(event.type === 'focus');
-  }
-
   private setupVisibilityHandler() {
     if (typeof this.document.addEventListener === 'undefined' ||
         typeof this.document[this.hiddenProperty] === 'undefined') {
@@ -78,5 +74,9 @@ export class VisibilityService {
         this.visibility$.next(!this.document[this.hiddenProperty]);
       });
     }
+  }
+
+  private legacyVisibilityHandler(event: FocusEvent) {
+    this.visibility$.next(event.type === 'focus');
   }
 }

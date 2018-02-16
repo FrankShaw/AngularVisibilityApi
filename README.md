@@ -48,3 +48,50 @@ export class MyComponent {
   })
 }
 ```
+
+## Decorators
+There is also the option to use provided method decorators to decorate methods that should only be run
+based on a certain browser visibility or when the visibility of the browser changes
+
+### @OnVisibilityChange()
+
+Any method decorated with this annotation will be called each time the browser visibility changes. This is very similar
+to subscribing to events from the `VisibilityService`, just providing another convenience method for interacting with 
+the service. Methods decorated with this annotation should accept one parameter `isVisible` that will be provided to the
+decorated method when the visibility change fires.
+
+```typescript
+export class MyComponent {
+  ...
+  
+  @OnVisibilityChange()
+  visibilityChanged(isVisible: Boolean) {
+    if (isVisible) {
+      //perform actions that need to be done when browser if visible
+    } else {
+      //perform actions when browser has been hidden
+    }
+  }
+}
+```
+
+### @WhenVisibilityIs(isVisible: Boolean)
+
+Another method for interacting with the `VisibilityService` is to decorate a method with this decorator. The `@WhenVisibilityIs`
+decorator takes a boolean value that indicates, based on the provided browser visibility status, whether the decorated
+method should be invoked or not.
+
+```typescript
+export class MyComponent {
+  ...
+  @WhenVisibilityIs(true)
+  executeOnlyWhenVisible(someArg: string, anotherArg: number) {
+    //this method only gets invoked (when called) if the application window is determined to be visible to the user.
+  }
+  
+  @WhenVisibilityIs(false)
+  executeOnlyWhenHidden() {
+    //this method only gets invoked (when called) if the application window is determined to be hidden to the user.
+  }
+}
+```
