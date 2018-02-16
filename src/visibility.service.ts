@@ -25,7 +25,6 @@ export class VisibilityService {
     this.document = <any> document;
     this.legacyVisibilityHandleFn = this.legacyVisibilityHandler.bind(this);
     this.initializeVisibilityParameters();
-    this.setupVisibilityHandler();
   }
 
   /**
@@ -40,6 +39,7 @@ export class VisibilityService {
     }
 
     return this.visibility$.asObservable();
+
   }
 
   private initializeVisibilityParameters() {
