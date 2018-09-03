@@ -1,6 +1,6 @@
 {
   "name": "@frshaw1/angular-visibility-api",
-  "version": "1.0.2",
+  "version": "1.0.6",
   "description": "An Angular and RxJS enabled event publisher for the browser's visibility API",
   "main": "dist/index.js",
   "scripts": {
@@ -24,7 +24,7 @@
   "bugs": {
     "url": "https://github.com/FrankShaw/AngularVisibilityApi/issues"
   },
-  "homepage": "https://github.com/FrankShaw/AngularVisibilityApi",
+  "homepage": "https://github.com/FrankShaw/AngularVisibilityApi#README",
   "typings": "dist/index.d.ts",
   "devDependencies": {
     "@angular/core": "^5.0.0",
@@ -36,8 +36,8 @@
     "zone.js": "^0.8.14"
   },
   "peerDependencies": {
-    "@angular/core": "^5.0.0",
-    "core-js": "^2.4.1",
-    "rxjs": "^5.5.2"
+    "@angular/core": ">=5.0.0",
+    "core-js": ">=2.4.1",
+    "rxjs": ">=5.5.2"
   }
 }
